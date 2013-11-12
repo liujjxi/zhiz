@@ -1,0 +1,52 @@
+@import base
+
+$dark: #666768
+$gray: #9d9e9f
+
+*
+  margin: 0
+
+html body .container
+  height: 100%
+
+body
+  font: 16px/1.7 "Helvetica Neue", Helvetica, Arial, Sans-serif
+  background: #fff
+  color: $dark
+
+.container
+  width: $width
+  margin: 0 auto
+  padding-top: 40px
+
+a
+  text-decoration: none
+
+.tabs
+  border-bottom: 1px solid #dddedf
+  margin-top: 0px
+  margin-bottom: 40px
+  height: 48px
+
+.tab
+  margin-bottom: 1px
+  float: left
+  padding: 10px 20px
+  color: $gray
+  +transition(.05s)
+  border: 1px solid #fff
+  border-bottom: 0
+
+.tab.active
+  color: $dark
+  border: 1px solid #dddedf
+  border-bottom: 1px solid #fff
+  border-radius: 4px 4px 0 0
+
+.tab:hover
+  color: $dark
+  cursor: pointer
+
+ul.flashes
+  list-style: none
+  margin-bottom: 20px

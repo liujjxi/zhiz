@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>{%block title%}Admin{%endblock%}</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='admin.css')}}" type="text/css" />
+  <script type="text/javascript" charset="utf-8">
+    setTimeout(function() { arr = document.getElementsByClassName('flashes'); if (arr) {arr[0].style.display='none';} }, 2000);
+  </script>
+</head>
+<body>
+<div class="container">
+  {# flash messages #}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flashes" style="display: block">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <div class="tabs">
+    <a href="{{url_for('write')}}" class="tab {% if active_tab == 'write' %}active{%endif%}">Write</a>
+    <a href="{{url_for('settings')}}" class="tab {% if active_tab == 'settings' %}active{%endif%}">Settings</a>
+    <a href="{{url_for('author')}}" class="tab {% if active_tab == 'author'%}active{%endif%}">Author</a>
+    <a href="{{url_for('password')}}" class="tab {% if active_tab == 'password'%}active{%endif%}">Password</a>
+    <a href="{{url_for('logout')}}" class="tab">Exit</a>
+  </div>
+  <div class="content">{%block content%}{%endblock%}</div>
+</div>
+</body>
+</html>

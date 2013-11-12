@@ -6,3 +6,6 @@ DB_CFG = {
     'user': 'root',
     'passwd': ''
 }
+
+# app's secret_key, you can use `os.urandom(24)` to generate one
+SECRET_KEY = '9ky3TU\x0egAq\xc0]\xb0\x88\xa4\x9f:#\xe8)\xfb\xab\xf2\xa2'

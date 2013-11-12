@@ -7,7 +7,7 @@
     zhiz's models: author, post, blog,
 """
 
-from zhi import app
+from zhiz import app
 
 from CURD import Model, Field, Database, PrimaryKey, ForeignKey
 
@@ -32,6 +32,11 @@ class Post(Model):
     title = Field()
     title_pic = Field()
     body = Field()
+
+
+class Admin(Model):
+
+    passwd = Field()
 
 
 Database.config(**app.config['DB_CFG'])
