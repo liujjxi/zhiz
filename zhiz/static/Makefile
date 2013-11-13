@@ -9,6 +9,8 @@ all:
 	sass/edit.sass:edit.css \
 	sass/drafts.sass:drafts.css \
 	sass/404.sass:404.css \
+	sass/public.sass:public.css \
+	sass/post.sass:post.css \
 	--style compressed
 
 clean:
