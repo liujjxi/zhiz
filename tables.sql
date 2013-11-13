@@ -10,7 +10,8 @@ create table if not exists author(
 create table if not exists blog(
     id int primary key auto_increment,
     name varchar(40),
-    description varchar(100)
+    description varchar(100),
+    disqus varchar(40)
 ) engine=innodb default charset=utf8;
 
 
@@ -18,7 +19,8 @@ create table if not exists post(
     id int primary key auto_increment,
     title varchar(40),
     title_pic varchar(100),
-    datetime datetime
+    datetime datetime,
+    body text
 ) engine=innodb default charset=utf8;
 
 
