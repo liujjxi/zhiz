@@ -7,6 +7,7 @@ all:
 	sass/settings.sass:settings.css \
 	sass/password.sass:password.css \
 	sass/edit.sass:edit.css \
+	sass/drafts.sass:drafts.css \
 	sass/404.sass:404.css \
 	--style compressed
 

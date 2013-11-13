@@ -65,10 +65,12 @@ def update_post(post_id):
 
     published_old = int(post.published)
 
+    if not post.published:  # only non-published posts update this field
+        post.published = published
+
     post.body = body
     post.title = title
     post.title_pic = title_pic
-    post.published = published
     rows_affected = post.save()
 
     if rows_affected >= 0:
@@ -84,7 +86,9 @@ def update_post(post_id):
 @app.route('/admin/drafts')
 @login_required
 def drafts():
-    posts = tuple(Post.findall(published=0))  # cast to tuple
+    query = Post.where(published=0).select(Post.title, Post.datetime)
+    results = query.execute()
+    posts = tuple(results.fetchall())
     if not posts:
         flash(dict(type="success", content="Wow, you have no drafts!"))
     return render_template('drafts.html', active_tab='drafts', posts=posts)

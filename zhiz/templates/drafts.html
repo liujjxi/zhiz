@@ -1,7 +1,21 @@
 {% extends "admin_layout.html" %}
 
+{%block title%}Drafts | Admin{%endblock%}
+{% block extra_head %}
+{{super()}}
+  <link rel="stylesheet" href="{{url_for('static', filename='drafts.css')}}" type="text/css" />
+{%endblock%}
 {%block tab_content%}
+<ul class="drafts">
 {% for post in posts %}
-  {{post.title}}
+<li class="draft">
+<span class="title">
+  <a href="{{url_for('edit', post_id=post.id)}}">{{post.title}}</a>
+</span>
+<span class="date">
+  {{post.datetime.strftime("%Y-%m-%d %H:%M")}}
+</span>
+</li>
 {%endfor%}
+</ul>
 {%endblock%}
