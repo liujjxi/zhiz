@@ -11,6 +11,7 @@ all:
 	sass/404.sass:404.css \
 	sass/public.sass:public.css \
 	sass/post.sass:post.css \
+	sass/page.sass:page.css \
 	--style compressed
 
 clean:

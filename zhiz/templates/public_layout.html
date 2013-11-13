@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{%block title%}{{blog.title}}{%endblock%}
+{% block extra_head %}
+<meta name="description" content="{%block meta_description%}{{blog.description}}{%endblock%}" />
+<link rel="stylesheet" href="{{url_for('static', filename='public.css')}}" type="text/css" />
+{%endblock%}
+
+{%block header%} 
+<div class="header-box">
+  <h1><a href="/" title="{{blog.name}}">{{blog.name}}</a></h1>
+  <h2>{{blog.description}}</h2>
+</div>
+{%endblock%}
+
+{% block container %}
+<div class="cut">* * *</div>
+<div class="content">
+  {%block content%}
+  {%endblock%}
+</div>
+<div class="aboutme">
+  <img src="{{url_for('static', filename='spinner-circle-fade.gif')}}" class="loader"/>
+  {% if author.url %}
+  <a href="{{author.url}}" title="{{author.name}}">
+    {% endif %}
+    <img src="https://secure.gravatar.com/avatar/{{author.gravatar_id}}?s=80" class="avatar" />
+    {% if author.url %}
+  </a>
+  {% endif %}
+  {% if author.url %}
+  <a href="{{author.url}}" title="{{author.name}}">
+    {% endif %}
+    <strong>{{author.name}}</strong>
+    {% if author.url %}
+  </a>
+  {% endif %}
+  <p>{{author.description}}</p>
+</div>
+<div class="footer-push"></div>
+{% endblock %}
+
+{%block footer%}
+<div class="cut">* * *</div>
+<div class="footer">
+  © 2013 ,
+  <a href="mailto:{{author.email}}">{{author.name}}</a> |
+  site built by <a href="https://github.com/hit9/zhiz.git">hit9/zhiz.git</a>
+</div>
+{%endblock%}

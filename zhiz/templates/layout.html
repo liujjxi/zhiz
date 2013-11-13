@@ -3,9 +3,6 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>{%block title%}{%endblock%}</title>
-  <script type="text/javascript" charset="utf-8">
-   // setTimeout(function() { arr = document.getElementsByClassName('flashes'); if (arr) {arr[0].style.display='none';} }, 10000);
-  </script>
   {% block extra_head %}
   {% endblock %}
 </head>
@@ -24,7 +21,11 @@
   {% endif %}
 {% endwith %}
 <div class="container">
+  {%block container%}
   <div class="content">{%block content%}{%endblock%}</div>
+  {%endblock%}
 </div>
+{%block footer %}
+{% endblock %}
 </body>
 </html>

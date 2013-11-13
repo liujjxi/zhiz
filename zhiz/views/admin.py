@@ -47,7 +47,7 @@ def create():
                        published=published)
     if published:
         flash(dict(type='success', content='Published successully'))
-        return redirect(url_for('write'))
+        return redirect(url_for('post', post_id=post.id))
     else:
         flash(dict(type='success', content='Saved to drafts successully'))
         return redirect(url_for('edit', post_id=post.id))  # jump to edit url
@@ -76,11 +76,15 @@ def update_post(post_id):
     if rows_affected >= 0:
         if not published_old and published:  # published
             flash(dict(type='success', content='Published successfully'))
+            return redirect(url_for('post', post_id=post.id))
         else:
             flash(dict(type='success', content='Saved successfully'))
+            if post.published:
+                return redirect(url_for('post', post_id=post.id))  # go to preview
+
     else:
         flash(dict(type='error', content='Something wrong when updating post'))
-    return redirect(url_for('edit', post_id=post_id))
+    return redirect(url_for('edit', post_id=post.id))
 
 
 @app.route('/admin/drafts')

@@ -1,0 +1,46 @@
+{%extends "public_layout.html"%}
+{% block title %}{{post.title}}{% endblock %}
+{% block extra_head %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='post.css')}}" type="text/css" />
+{%endblock%}
+
+{% block content %}
+  {% if post.title_pic %}
+  <div class="title-pic-container">
+    <img src="{{url_for('static', filename='spinner-circle-fade.gif')}}" class="loader"/>
+    <a href="{{post.title_pic}}" title="{{post.title}}">
+      <img src="{{post.title_pic}}" alt="{{post.title}}" class="title-pic"/>
+    </a>
+  </div>
+  {% endif %}
+  <h1 class="title">{{post.title}}</h1>
+  <div class="toolbar">
+    <a href="{{url_for('edit', post_id=post.id)}}">Edit</a>
+  </div>
+  <div class="post-html">
+    {% autoescape false %}
+    {{post.html}}
+    {% endautoescape %}
+  </div>
+  <div class="date">written on {{post.datetime.strftime("%b  %d, %y")}} </div>
+
+
+  {% if blog.disqus %}
+    <!-- Disqus Begin-->
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      var disqus_shortname = '{{blog.disqus}}'; // required: replace example with your forum shortname
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <!-- Disqus End-->
+  {% endif %}
+{% endblock %}
