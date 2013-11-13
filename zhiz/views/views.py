@@ -36,7 +36,7 @@ def page(page_number):
 
     n = 3
 
-    query = Post.limit(n, offset=n * (page_number-1)).select()
+    query = Post.orderby(Post.datetime, desc=True).limit(n, offset=n * (page_number-1)).select()
     results = query.execute()
     count = results.count
 
