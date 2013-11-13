@@ -22,13 +22,14 @@ class Author(Model):
 
 class Blog(Model):
 
-    title = Field()
+    name = Field()
     description = Field()
+    disqus = Field()
 
 
 class Post(Model):
 
-    datatime = Field()
+    datetime = Field()
     title = Field()
     title_pic = Field()
     body = Field()

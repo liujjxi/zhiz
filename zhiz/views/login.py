@@ -34,8 +34,9 @@ def do_login():
         hashed_passwd_in_db = Admin.getone().passwd
         if hashed_passwd == hashed_passwd_in_db:
             session['loged'] = 'loged'
-            flash('Logged in successfully.')
+            flash(dict(type='success', content='Logged in successfully'))
             return redirect(url_for('admin'))
+        flash(dict(type='error', content='Incorrect password'))
     return redirect(url_for('login'))
 
 
@@ -51,7 +52,7 @@ def login_required(func):
 @app.route('/logout')
 def logout():
     session.pop('loged', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('admin'))
 
 
 def logged_in():

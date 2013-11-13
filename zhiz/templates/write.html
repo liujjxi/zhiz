@@ -1,5 +1,25 @@
 {%extends "admin_layout.html"%}
+{% block extra_head %} 
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='editor/editor.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{url_for('static', filename='write.css')}}" type="text/css" />
+<script type="text/javascript" src="{{url_for('static', filename='editor/editor.js')}}"></script>
+{% endblock %}
 {%block title%}Write | Admin{%endblock%}
-{%block content%}
-写作
+{%block tab_content%}
+<div class="editor-wrapper">
+  <form action="{{url_for('create')}}" method="post" accept-charset="utf-8" onsubmit="editor.codemirror.save();">
+    <input name="title" class="title" type="text" placeholder="Title" id="title"/>
+    <input name="title_pic" class="title" type="text" placeholder="Title Picture" id="title_pic"/>
+    <textarea name="body" id="editor" placeholder="Content here ..."></textarea>
+    <p class="write-btn-box">
+      <button type="submit" class="btn-white">Close</button>
+      <button type="submit" class="btn-blue">Publish</button>
+    </p>
+  </form>
+</div>
+<script type="text/javascript">
+  var editor = new Editor();
+  editor.render();
+</script>
 {%endblock%}

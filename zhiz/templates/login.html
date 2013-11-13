@@ -1,18 +1,28 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title>Login</title>
+{% extends 'layout.html' %}
+
+{%block title%} Login {%endblock%}
+
+{%block extra_head%}
+  {{super()}}
   <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}" type="text/css" />
-</head>
-<body>
-  <div class="login_box">
+{%endblock%}
+
+{%block header%}
+<a class="left" href="{{url_for('index')}}" title="Go to index">Index</a>
+{%endblock%}
+
+{%block content%}
+  <div class="login_box form-box">
     <form action="{{url_for('do_login')}}" method="post" accept-charset="utf-8">
-      <p>
-      Password: <input type="password" name="passwd" id="passwd"/>
-      <input type="submit" name="submit" value="Submit" />
-      </p>
+      <div class="item">
+        <label>
+          Password
+        </label>
+       <input type="password" name="passwd" id="passwd" class="iput"/>
+     </div>
+     <div class="buttons item">
+       <button  class="btn-blue" type="submit" name="submit">Submit</button>
+     </div>
     </form>
   </div>
-</body>
-</html>
+{%endblock%}

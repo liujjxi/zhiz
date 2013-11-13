@@ -1,13 +1,8 @@
-@import base
+@import layout
 
 $dark: #666768
 $gray: #9d9e9f
 
-*
-  margin: 0
-
-html body .container
-  height: 100%
 
 body
   font: 16px/1.7 "Helvetica Neue", Helvetica, Arial, Sans-serif
@@ -21,6 +16,31 @@ body
 
 a
   text-decoration: none
+
+.header
+  padding: 12px 0 7px 0
+  width: 100%
+  display: inline-block
+  a
+    font-size: 18px
+    font-weight: 600
+    line-height: 25px
+    display: block
+    width: 45%
+  a:link, a:visited
+    text-decoration: none
+    color: $gray
+  a:hover
+    color: $dark
+    text-decoration: none
+  a.left
+    float: left
+    text-align: left
+    margin-left: 5%
+  a.right
+    float: right
+    text-align: right
+    margin-right: 5%
 
 .tabs
   border-bottom: 1px solid #dddedf
@@ -47,6 +67,3 @@ a
   color: $dark
   cursor: pointer
 
-ul.flashes
-  list-style: none
-  margin-bottom: 20px

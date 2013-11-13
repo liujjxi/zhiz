@@ -5,7 +5,10 @@
     ~~~~~~~~~~~~~~~~~
 """
 
-from flask import render_template, request, redirect, url_for
+from datetime import datetime
+from hashlib import md5
+
+from flask import render_template, request, redirect, url_for, flash
 
 from zhiz import app
 from zhiz.views.login import login_required
@@ -24,19 +27,148 @@ def write():
     return render_template('write.html', active_tab='write')
 
 
+@app.route('/admin/create', methods=['POST'])
+@login_required
+def create():
+    body = request.form['body']
+    title = request.form['title']
+    title_pic = request.form['title_pic']
+
+    if len(title) <=0 :
+        flash(dict(type='warning', content='Empty title'))
+        return redirect(url_for('write'))
+
+    create_at = datetime.now()
+    create_at_str = create_at.strftime('%Y-%m-%d %H:%M:%S')
+
+    post = Post.create(title=title, title_pic=title_pic, body=body, datetime=create_at_str)
+    flash(dict(type='success', content='Create successully'))
+
+    return redirect(url_for('write'))
+
+
+@app.route('/admin/drafts')
+@login_required
+def drafts():
+    pass
+
+
 @app.route('/admin/settings')
 @login_required
 def settings():
-    return render_template('settings.html', active_tab='settings')
+    query = Blog.limit(1).select()
+    result = query.execute()
+    blog = result.fetchone()
+    if blog is None:
+        blog = dict(
+            name='',
+            description='',
+            disqus= ''
+        )
+        flash(dict(type='warning', content='You have no settings, please edit and save'))
+    return render_template('settings.html', active_tab='settings', blog=blog)
+
+
+@app.route('/admin/update_settings', methods=['POST'])
+@login_required
+def update_settings():
+
+    name = request.form['name']
+    description = request.form['description']
+    disqus = request.form['disqus']
+
+    query = Blog.limit(1).select()
+    result = query.execute()
+    blog = result.fetchone()
+
+    if blog is None:  # insert
+        blog = Blog.create(name=name, description=description, disqus=disqus)
+        flash(dict(type='success', content='Create settings successully'))
+    else:  # do update
+        blog.name = name
+        blog.disqus = disqus
+        blog.description = description
+        blog.save()
+        flash(dict(type='success', content='Save settings successully'))
+
+    return redirect(url_for('settings'))
 
 
 @app.route('/admin/author')
 @login_required
 def author():
-    return render_template('author.html', active_tab='author')
+    query = Author.limit(1).select()
+    result = query.execute()
+    author = result.fetchone()
+
+    if author is None:
+        author = dict(
+            name='',
+            email='',
+            url='',
+            description='',
+        )
+        flash(dict(type='warning', content='Please compelte author\'s information'))
+    return render_template('author.html', active_tab='author', author=author)
+
+
+@app.route('/admin/update_author', methods=['POST'])
+@login_required
+def update_author():
+
+    name = request.form['name']
+    email = request.form['email']
+    url = request.form['url']
+    description = request.form['description']
+
+    query = Author.limit(1).select()
+    result = query.execute()
+    author = result.fetchone()
+
+    if author is None:  # do a insert
+        author = Author.create(name=name, email=email, url=url, description=description)
+        flash(dict(type='success', content='Create author information successully'))
+    else:  # do a save
+        author.name = name
+        author.email = email
+        author.url = url
+        author.description = description
+        author.save()
+        flash(dict(type='success', content='Save author information successully'))
+    return redirect(url_for('author'))
+
 
 
 @app.route('/admin/password')
 @login_required
 def password():
     return render_template('password.html', active_tab='password')
+
+
+@app.route('/admin/update_password', methods=['POST'])
+@login_required
+def update_password():
+    password_now = request.form['password_now']
+    password_new = request.form['password_new']
+    password_new_repeat = request.form['password_new_repeat']
+
+    if password_now and password_new and password_new_repeat:
+        if password_new_repeat != password_new:
+            flash(dict(type='warning', content='The two new passwords do not match'))
+        else:
+            query = Admin.limit(1).select()
+            result = query.execute()
+            admin = result.fetchone()
+
+            hashed_passwd_now = md5(password_now).hexdigest()
+
+            if hashed_passwd_now != admin.passwd:
+                flash(dict(type='warning', content='Incorrect password'))
+            else:
+                admin.passwd = md5(password_new).hexdigest()
+                admin.save()
+                flash(dict(type='success', content='Save password successully, please login again'))
+                return redirect(url_for('logout'))
+    else:
+        flash(dict(type='warning', content='Empty input'))
+    return redirect(url_for('password'))

@@ -1,5 +1,31 @@
 {%extends "admin_layout.html"%}
 {%block title%}Author | Admin{%endblock%}
-{%block content%}
-author
+{% block extra_head %}
+{{super()}}
+  <link rel="stylesheet" href="{{url_for('static', filename='author.css')}}" type="text/css" />
+{%endblock%}
+{%block tab_content%}
+  <div class="form-box">
+    <form action="{{url_for('update_author')}}" method="post" accept-charset="utf-8">
+      <div class="item">
+        <label>Name</label>
+        <input type="text" name="name" id="name" value="{{author.name}}" class="iput" />
+      </div>
+      <div class="item">
+        <label>Email</label>
+        <input type="text" name="email" id="email" value="{{author.email}}" class="iput" />
+      </div>
+      <div class="item">
+        <label>Url</label>
+        <input type="text" name="url" id="url" value="{{author.url}}" class="iput" />
+      </div>
+      <div class="item">
+        <label>Description</label>
+        <input type="text" name="description" id="description" value="{{author.description}}" class="iput" />
+      </div>
+      <div class="item buttons">
+        <button type="submit" class="btn-blue">Save</button>
+      </div>
+    </form>
+  </div>
 {%endblock%}
