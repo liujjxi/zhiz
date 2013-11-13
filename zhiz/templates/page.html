@@ -1,7 +1,7 @@
 {% extends "public_layout.html" %}
 
 {% block title %}
-{% if page.number == 1 %}
+{% if page.first%}
 {{blog.name}}
 {% else %}
 Page {{page.number}} | {{blog.name}} 
@@ -47,10 +47,10 @@ Page {{page.number}} | {{blog.name}}
 {% endfor %}
 <div class="paging">
 {% if page.first == False %}
-<a class="prev" title="Previous Page" href="{%if page.number == 2%}/{%else%}{{root_path}}/page/{{page.number-1}}.html{%endif%}"> < </a>
+<a class="prev" title="Previous Page" href="{%if page.number == 2%}{{url_for('index')}}{%else%}{{url_for('page', page_number=page.number-1)}}{%endif%}"> < </a>
 {%endif%}
 {% if page.last == False %}
-<a class="next" title="Next Page" href="/page/{{page.number+1}}.html"> > </a>
+<a class="next" title="Next Page" href="{{url_for('page', page_number=page.number+1)}}"> > </a>
 {%endif%}
 </div>
 {% endblock %}

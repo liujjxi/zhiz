@@ -34,17 +34,26 @@ def page(page_number):
     if page_number <= 0:
         abort(404)
 
-    query = Post.limit(15, offset=15 * (page_number-1)).select()
+    n = 3
+
+    query = Post.limit(n, offset=n * (page_number-1)).select()
     results = query.execute()
     count = results.count
 
     if not count: # no posts
         abort(404)
 
+    total_count = Post.select(Post.id).execute().count
+
+    is_first_page = True if page_number == 1 else False
+    is_last_page = True if n * page_number >= total_count else False
+
     posts = tuple(results.fetchall())
     page = dict(
         number=page_number,
-        posts=posts
+        posts=posts,
+        first=is_first_page,
+        last=is_last_page
     )
     blog = Blog.getone()
     author = Author.getone()
