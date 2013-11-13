@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{%block extra_head%}
+  {{super()}}
+  <link rel="stylesheet" href="{{url_for('static', filename='404.css')}}" type="text/css" />
+{%endblock%}
+
+{%block header%}
+<a class="left" href="{{url_for('index')}}" title="Go to index">Index</a>
+{%endblock%}
+
+{% block content %}
+  <h1> 404 </h1>
+{% endblock %}

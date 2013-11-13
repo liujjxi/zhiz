@@ -17,6 +17,9 @@
     <a href="{{url_for('settings')}}" class="tab {% if active_tab == 'settings' %}active{%endif%}">Settings</a>
     <a href="{{url_for('author')}}" class="tab {% if active_tab == 'author'%}active{%endif%}">Author</a>
     <a href="{{url_for('password')}}" class="tab {% if active_tab == 'password'%}active{%endif%}">Password</a>
+    {% if active_tab == 'eidt' %}
+    <a class="tab active">Edit</a>
+    {%endif%}
   </div>
   <div class="tab-content">{%block tab_content %} {% endblock %} </div>
 {%endblock%}

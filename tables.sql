@@ -20,7 +20,8 @@ create table if not exists post(
     title varchar(40),
     title_pic varchar(100),
     datetime datetime,
-    body text
+    body text,
+    published tinyint default 0
 ) engine=innodb default charset=utf8;
 
 

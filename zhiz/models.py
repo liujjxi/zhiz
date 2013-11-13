@@ -33,6 +33,7 @@ class Post(Model):
     title = Field()
     title_pic = Field()
     body = Field()
+    published = Field()
 
 
 class Admin(Model):

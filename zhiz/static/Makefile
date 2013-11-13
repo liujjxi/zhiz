@@ -6,6 +6,8 @@ all:
 	sass/author.sass:author.css \
 	sass/settings.sass:settings.css \
 	sass/password.sass:password.css \
+	sass/edit.sass:edit.css \
+	sass/404.sass:404.css \
 	--style compressed
 
 clean:

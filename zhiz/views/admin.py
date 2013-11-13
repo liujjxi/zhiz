@@ -8,7 +8,8 @@
 from datetime import datetime
 from hashlib import md5
 
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash,\
+        abort
 
 from zhiz import app
 from zhiz.views.login import login_required
@@ -33,6 +34,7 @@ def create():
     body = request.form['body']
     title = request.form['title']
     title_pic = request.form['title_pic']
+    published = int(request.form['published'])
 
     if len(title) <=0 :
         flash(dict(type='warning', content='Empty title'))
@@ -41,16 +43,61 @@ def create():
     create_at = datetime.now()
     create_at_str = create_at.strftime('%Y-%m-%d %H:%M:%S')
 
-    post = Post.create(title=title, title_pic=title_pic, body=body, datetime=create_at_str)
-    flash(dict(type='success', content='Create successully'))
+    post = Post.create(title=title, title_pic=title_pic, body=body, datetime=create_at_str,
+                       published=published)
+    if published:
+        flash(dict(type='success', content='Published successully'))
+        return redirect(url_for('write'))
+    else:
+        flash(dict(type='success', content='Saved to drafts successully'))
+        return redirect(url_for('edit', post_id=post.id))  # jump to edit url
 
-    return redirect(url_for('write'))
+
+@app.route('/admin/update/<int:post_id>', methods=['POST'])
+@login_required
+def update_post(post_id):
+    body = request.form['body']
+    title = request.form['title']
+    title_pic = request.form['title_pic']
+    published = int(request.form['published'])
+
+    post = Post.at(post_id).getone()
+
+    published_old = int(post.published)
+
+    post.body = body
+    post.title = title
+    post.title_pic = title_pic
+    post.published = published
+    rows_affected = post.save()
+
+    if rows_affected >= 0:
+        if not published_old and published:  # published
+            flash(dict(type='success', content='Published successfully'))
+        else:
+            flash(dict(type='success', content='Saved successfully'))
+    else:
+        flash(dict(type='error', content='Something wrong when updating post'))
+    return redirect(url_for('edit', post_id=post_id))
 
 
 @app.route('/admin/drafts')
 @login_required
 def drafts():
-    pass
+    posts = tuple(Post.findall(published=0))  # cast to tuple
+    if not posts:
+        flash(dict(type="success", content="Wow, you have no drafts!"))
+    return render_template('drafts.html', active_tab='drafts', posts=posts)
+
+
+@app.route('/admin/edit/<int:post_id>')
+@login_required
+def edit(post_id):
+    post = Post.findone(id=post_id)
+    if post is None:
+        flash(dict(type="error", content="Request post not found"))
+        abort(404)
+    return render_template('edit.html', post=post, active_tab='eidt')
 
 
 @app.route('/admin/settings')
@@ -69,7 +116,7 @@ def settings():
     return render_template('settings.html', active_tab='settings', blog=blog)
 
 
-@app.route('/admin/update_settings', methods=['POST'])
+@app.route('/admin/settings/update', methods=['POST'])
 @login_required
 def update_settings():
 
@@ -112,7 +159,7 @@ def author():
     return render_template('author.html', active_tab='author', author=author)
 
 
-@app.route('/admin/update_author', methods=['POST'])
+@app.route('/admin/author/update', methods=['POST'])
 @login_required
 def update_author():
 
@@ -145,7 +192,7 @@ def password():
     return render_template('password.html', active_tab='password')
 
 
-@app.route('/admin/update_password', methods=['POST'])
+@app.route('/admin/password/update', methods=['POST'])
 @login_required
 def update_password():
     password_now = request.form['password_now']

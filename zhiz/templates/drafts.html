@@ -1,0 +1,7 @@
+{% extends "admin_layout.html" %}
+
+{%block tab_content%}
+{% for post in posts %}
+  {{post.title}}
+{%endfor%}
+{%endblock%}
