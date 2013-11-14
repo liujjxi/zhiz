@@ -24,7 +24,9 @@ class Author(Model):
 
     @property
     def gravatar_id(self):
-        return md5(self.email).hexdigest()
+        if self.email:
+            return md5(self.email).hexdigest()
+        return ''
 
 
 class Blog(Model):
