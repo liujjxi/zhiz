@@ -35,6 +35,22 @@ Setup
 
 5. Go to `/admin` to login, default password is `admin`
 
+About
+-----
+
+- Write posts in Markdown
+
+- Ability to save drafts, preview
+
+- Clean style
+
+Thanks
+-------
+
+- Thanks for @lepture's awesome markdown editor.
+
+- Thanks for iconmoon's free and nice icons.
+
 Screen-shot
 -----------
 
