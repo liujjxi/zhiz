@@ -8,7 +8,11 @@
 {%endblock%}
 
 {%block header%}
-<a class="left icon-home" href="{{url_for('index')}}" title="Go to index"></a>
+<a class="left" href="{{url_for('index')}}">
+  <span class="hint--bottom" data-hint="Go to index">
+    <i class="icon-home"></i>
+  </span>
+</a>
 {%endblock%}
 
 {%block content%}

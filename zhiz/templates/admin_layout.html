@@ -6,8 +6,16 @@
 {% endblock %}
 
 {%block header%}
-<a class="left icon-home" href="{{url_for('index')}}" title="Go to index"></a>
-<a class="right icon-switch" href="{{url_for('logout')}}" title="Logout"></a>
+<a class="left" href="{{url_for('index')}}">
+  <span class="hint--bottom" data-hint="Go to index">
+    <i class="icon-home"></i>
+  </span>
+</a>
+<a class="right" href="{{url_for('logout')}}">
+  <span class="hint--bottom" data-hint="Logout">
+    <i class="icon-switch"></i>
+  </span>
+</a>
 {%endblock%}
 
 {% block content %}
