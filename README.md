@@ -5,6 +5,8 @@ The dynamic version of [hit9/rux.git](http://github.com/hit9/rux.git)
 
 version v0.0.1
 
+Testing url: http://zhizblog.ap01.aws.af.cm/
+
 Setup
 -----
 
