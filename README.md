@@ -33,7 +33,8 @@ Setup
    python runserver.py
    ```
 
-5. Go to `/admin` to login, default password is `admin`
+5. Go to `/admin` to login, default password is `admin`, site is served on
+   `http://0.0.0.0` at ort `5000`
 
 About
 -----
