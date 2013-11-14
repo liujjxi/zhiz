@@ -15,7 +15,7 @@
     <input type="hidden" name="published" id="published" value={{post.published}} />
     <textarea name="body" id="editor" placeholder="Content here ...">{{post.body}}</textarea>
     <p class="btn-box">
-    <button type="submit" class="btn-white" onclick="preview();" >
+    <button type="submit" class="btn-white" onclick="preview(); return false;" >
       <span class="icon-eye">Preview</span>
     </button>
     <button type="submit" class="btn-white" onclick="do_a_save();" >
