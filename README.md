@@ -13,6 +13,8 @@ Setup
    ```bash
    git clone git://github.com/hit9/zhiz.git
    cd zhiz
+   virtualenv venv
+   . venv/bin/activate
    pip install -r requirements.txt
    ```
 
