@@ -116,8 +116,6 @@ def drafts():
     query = Post.where(published=0).orderby(Post.datetime, desc=True).select(Post.title, Post.datetime)
     results = query.execute()
     posts = tuple(results.fetchall())
-    if not posts:
-        flash(dict(type="success", content="Wow, you have no drafts!"))
     return render_template('drafts.html', active_tab='drafts', posts=posts)
 
 

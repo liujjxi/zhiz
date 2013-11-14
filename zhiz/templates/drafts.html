@@ -6,6 +6,9 @@
   <link rel="stylesheet" href="{{url_for('static', filename='drafts.css')}}" type="text/css" />
 {%endblock%}
 {%block tab_content%}
+{% if not posts %}
+<span class="icon-happy">No drafts!</span>
+{% endif %}
 <ul class="drafts">
 {% for post in posts %}
 <li class="draft">

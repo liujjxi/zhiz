@@ -31,6 +31,8 @@ def render_public(template, **data):
 @app.route('/post/<int:post_id>')
 def post(post_id):
     post = Post.at(post_id).getone()
+    if post is None:
+        abort(404)
     setattr(post, 'html', markdown.render(post.body))
     return render_public('post.html', post=post)
 
