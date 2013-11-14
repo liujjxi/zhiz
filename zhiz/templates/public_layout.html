@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{url_for('static', filename='public.css')}}" type="text/css" />
 {%endblock%}
 
-{%block header%} 
+{%block header%}
 <div class="header-box">
   <h1><a href="/" title="{{blog.name}}">{{blog.name}}</a></h1>
   <h2>{{blog.description}}</h2>
@@ -13,6 +13,15 @@
 {%endblock%}
 
 {% block container %}
+{% if logged_in %} {# edit blog #}
+<div class="toolbar">
+ <form action="{{url_for('admin')}}" >
+   <button title="Manage this blog" type="submit" class="btn-white">
+     <span class="icon-cog">Admin</span>
+   </button>
+ </form>
+</div>
+{% endif %}
 <div class="cut">* * *</div>
 <div class="content">
   {%block content%}
@@ -35,6 +44,15 @@
   </a>
   {% endif %}
   <p>{{author.description}}</p>
+  {% if logged_in %}
+  <div class="toolbar">
+   <form action="{{url_for('author')}}" >
+     <button title="Edit your profile" type="submit" class="btn-white">
+       <span class="icon-cog">Edit</span>
+     </button>
+   </form>
+  </div>
+  {% endif %}
 </div>
 <div class="footer-push"></div>
 {% endblock %}

@@ -14,9 +14,13 @@
     <input type="hidden" name="published" id="published" value={{post.published}} />
     <textarea name="body" id="editor" placeholder="Content here ...">{{post.body}}</textarea>
     <p class="btn-box">
-      <button type="submit" class="btn-white" onclick="do_a_save();" >Save</button>
+    <button type="submit" class="btn-white" onclick="do_a_save();" >
+      <span class="icon-disk">Save</span>
+    </button>
       {% if not post.published %}
-      <button type="submit" class="btn-blue" onclick="publish_post();" >Publish</button>
+      <button type="submit" class="btn-blue" onclick="publish_post();" >
+        <span class="icon-blog">Publish</span>
+      </button>
       {%endif%}
     </p>
   </form>

@@ -15,9 +15,15 @@
   </div>
   {% endif %}
   <h1 class="title">{{post.title}}</h1>
+  {% if logged_in %}
   <div class="toolbar">
-    <a href="{{url_for('edit', post_id=post.id)}}">Edit</a>
+    <form action="{{url_for('edit', post_id=post.id)}}" >
+      <button type="submit" class="btn-white" title="Edit this post">
+        <span class="icon-cog">Edit</span>
+      </button>
+    </form>
   </div>
+  {% endif %}
   <div class="post-html">
     {% autoescape false %}
     {{post.html}}

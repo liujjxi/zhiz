@@ -6,8 +6,8 @@
 {% endblock %}
 
 {%block header%}
-<a class="left" href="{{url_for('index')}}" title="Go to index">Index</a>
-<a class="right" href="{{url_for('logout')}}" title="Logout">Exit</a>
+<a class="left icon-home" href="{{url_for('index')}}" title="Go to index"></a>
+<a class="right icon-switch" href="{{url_for('logout')}}" title="Logout"></a>
 {%endblock%}
 
 {% block content %}
@@ -16,7 +16,7 @@
     <a href="{{url_for('drafts')}}" class="tab {% if active_tab == 'drafts' %}active{%endif%}">Drafts</a>
     <a href="{{url_for('settings')}}" class="tab {% if active_tab == 'settings' %}active{%endif%}">Settings</a>
     <a href="{{url_for('author')}}" class="tab {% if active_tab == 'author'%}active{%endif%}">Author</a>
-    <a href="{{url_for('password')}}" class="tab {% if active_tab == 'password'%}active{%endif%}">Password</a>
+    <a href="{{url_for('password')}}" class="tab {% if active_tab == 'password'%}active{%endif%}">Security</a>
     {% if active_tab == 'eidt' %}
     <a class="tab active">Edit</a>
     {%endif%}
