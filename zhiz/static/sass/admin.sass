@@ -1,10 +1,12 @@
 @import layout
 
+$background: #f9f9f7
 
 body
   font: 16px/1.7 "Helvetica Neue", Helvetica, Arial, Sans-serif
   background: #fff
   color: $dark
+  background-color: $background
 
 .container
   width: $width
@@ -54,7 +56,7 @@ a:hover
   padding: 10px 20px
   color: $gray
   +transition(.05s)
-  border: 1px solid #fff
+  border: 1px solid $background
   border-bottom: 0
 
 .tab.active

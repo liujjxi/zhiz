@@ -131,6 +131,20 @@ def edit(post_id):
     return render_template('edit.html', post=post, active_tab='eidt')
 
 
+@app.route('/admin/delete/<int:post_id>', methods=['POST'])
+@login_required
+def delete(post_id):
+    query = Post.at(post_id).delete()
+    rows_affected = query.execute()
+
+    if rows_affected <= 0:
+        flash(dict(type="error", content="Something wrong when deleting post"))
+        return redirect(url_for('edit', post_id=post_id))
+    else:
+        flash(dict(type="success", content="Delete post successfully"))
+        return redirect(url_for('write'))
+
+
 @app.route('/admin/settings')
 @login_required
 def settings():
