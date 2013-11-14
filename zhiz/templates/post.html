@@ -18,7 +18,7 @@
   {% if logged_in %}
   <div class="toolbar">
     <form action="{{url_for('edit', post_id=post.id)}}" >
-      <button type="submit" class="btn-white" title="Edit this post">
+      <button type="submit" class="btn-white hint--bottom" data-hint="Edit this post">
         <span class="icon-cog">Edit</span>
       </button>
     </form>
