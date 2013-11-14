@@ -26,6 +26,7 @@ Setup
 3. create tables and initialize data:
 
    ```sql
+   mysql> use zhiz;
    mysql> source tables.sql;
    ```
 
@@ -35,8 +36,7 @@ Setup
    python runserver.py
    ```
 
-5. Go to `/admin` to login, default password is `admin`, site is served on
-   `http://0.0.0.0` at ort `5000`
+5. Site is served at `http://0.0.0.0:5000`, go to `/admin` to login, default password is `admin`, 
 
 About
 -----
