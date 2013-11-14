@@ -1,7 +1,7 @@
 # coding=utf8
 
 from CURD import Models
-from flask import render_template, abort
+from flask import render_template, abort, flash
 
 from zhiz import app
 from zhiz.models import *
@@ -23,7 +23,12 @@ def page_not_found(error):
 
 def render_public(template, **data):
     models = Models(Blog, Author)
-    blog, author = models.getone()
+    query = models.select()
+    results = query.execute()
+    if results.count <= 0:
+        flash(dict(type='warning', content='Not configure blog or author yet'))
+        return render_template('error.html')
+    blog, author = results.fetchone()
     return render_template(template, blog=blog, author=author, logged_in=logged_in(),
                            **data)
 
@@ -49,7 +54,7 @@ def page(page_number):
     results = query.execute()
     count = results.count
 
-    if not count: # no posts
+    if count < 0: # no posts
         abort(404)
 
     total_count = Post.select(Post.id).execute().count
