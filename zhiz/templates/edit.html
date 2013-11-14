@@ -8,12 +8,15 @@
 {%block title%}Edit | Admin{%endblock%}
 {%block tab_content%}
 <div class="editor-wrapper">
-  <form action="{{url_for('update_post', post_id=post.id)}}" method="post" accept-charset="utf-8">
+  <form name="workspace" action="{{url_for('update_post', post_id=post.id)}}" method="post" accept-charset="utf-8">
     <input name="title" class="title" type="text" placeholder="Title" id="title" value="{{post.title}}"/>
     <input name="title_pic" class="title" type="text" placeholder="Title Picture Url" id="title_pic" value="{{post.title_pic}}" />
     <input type="hidden" name="published" id="published" value={{post.published}} />
     <textarea name="body" id="editor" placeholder="Content here ...">{{post.body}}</textarea>
     <p class="btn-box">
+    <button type="submit" class="btn-white" onclick="preview();" >
+      <span class="icon-eye">Preview</span>
+    </button>
     <button type="submit" class="btn-white" onclick="do_a_save();" >
       <span class="icon-disk">Save</span>
     </button>
@@ -29,16 +32,29 @@
   var editor = new Editor();
   editor.render();
 
+  var form = document.workspace
+
   var do_a_save = function() {
     editor.codemirror.save();
-    this.submit();
+    form.target = '_self';
+    form.action = '{{url_for("update_post", post_id=post.id)}}';
+    form.submit();
+  };
+
+  var preview = function() {
+    editor.codemirror.save();
+    form.target = '_blank';
+    form.action = '{{url_for("preview")}}';
+    form.submit();
   };
 
   {% if not post.published %}
   var publish_post = function() {
-    this.published.value = 1;
     editor.codemirror.save();
-    this.submit()
+    form.target = '_self';
+    form.action = '{{url_for("update_post", post_id=post.id)}}';
+    form.published.value = 1;
+    form.submit()
   };
   {% endif %}
 </script>

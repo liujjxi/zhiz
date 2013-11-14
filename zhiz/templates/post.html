@@ -17,11 +17,17 @@
   <h1 class="title">{{post.title}}</h1>
   {% if logged_in %}
   <div class="toolbar">
+    {% if post.id %} {# normarl rendering #}
     <form action="{{url_for('edit', post_id=post.id)}}" >
       <button type="submit" class="btn-white hint--bottom" data-hint="Edit this post">
-        <span class="icon-cog">Edit</span>
+        <span class="icon-pencil">Edit</span>
       </button>
     </form>
+    {% else %} {# preview rendering #}
+      <button class="btn-white hint--bottom" data-hint="Close this window" onclick="window.close();">
+        <span class="icon-cancel-circle">Close</span>
+      </button>
+    {% endif %}
   </div>
   {% endif %}
   <div class="post-html">

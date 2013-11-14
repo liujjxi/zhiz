@@ -13,6 +13,8 @@ from flask import render_template, request, redirect, url_for, flash,\
 
 from zhiz import app
 from zhiz.views.login import login_required
+from zhiz.views.views import render_public
+from zhiz.markdown import markdown
 from zhiz.models import *
 
 
@@ -85,6 +87,27 @@ def update_post(post_id):
     else:
         flash(dict(type='error', content='Something wrong when updating post'))
     return redirect(url_for('edit', post_id=post.id))
+
+
+@app.route('/preview', methods=['POST'])
+@login_required
+def preview():
+    title = request.form['title']
+    title_pic = request.form['title_pic']
+    body = request.form['body']
+
+    if not title:
+        flash(dict(type='warning', content='Title is empty!'))
+
+    post = dict(
+        title=title,
+        title_pic=title_pic,
+        html=markdown.render(body),
+        datetime=datetime.now(),
+        id=None
+    )
+
+    return render_public('post.html', post=post)
 
 
 @app.route('/admin/drafts')

@@ -1,5 +1,5 @@
 {%extends "admin_layout.html"%}
-{% block extra_head %} 
+{% block extra_head %}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('static', filename='editor/editor.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{url_for('static', filename='write.css')}}" type="text/css" />
@@ -8,12 +8,15 @@
 {%block title%}Write | Admin{%endblock%}
 {%block tab_content%}
 <div class="editor-wrapper">
-  <form action="{{url_for('create')}}" method="post" accept-charset="utf-8" >
+  <form action="{{url_for('create')}}" method="post" accept-charset="utf-8" name="workspace">
     <input name="title" class="title" type="text" placeholder="Title" id="title"/>
     <input name="title_pic" class="title" type="text" placeholder="Title Picture Url" id="title_pic"/>
     <input type="hidden" name="published" id="published" value=0 />
     <textarea name="body" id="editor" placeholder="Content here ..."></textarea>
     <p class="write-btn-box">
+    <button type="submit" class="btn-white" onclick="preview();" >
+      <span class="icon-eye">Preview</span>
+    </button>
     <button type="submit" class="btn-white" onclick="save_to_draft();" >
       <span class="icon-disk">Save as draft</span>
     </button>
@@ -28,16 +31,29 @@
   var editor = new Editor();
   editor.render();
 
+  var form = document.workspace;
+
   var save_to_draft = function() {
     editor.codemirror.save();
-    this.published.value = 0;
-    this.submit()
+    form.target = '_self';
+    form.action= '{{url_for("create")}}';
+    form.published.value = 0;
+    form.submit()
   };
 
   var publish_post = function() {
-      editor.codemirror.save();
-      this.published.value = 1;
-      this.submit()
+    editor.codemirror.save();
+    form.target = '_self';
+    form.action= '{{url_for("create")}}';
+    form.published.value = 1;
+    form.submit()
+  };
+
+  var preview = function() {
+    editor.codemirror.save();
+    form.target = '_blank';
+    form.action = '{{url_for("preview")}}';
+    form.submit();
   };
 </script>
 {%endblock%}
