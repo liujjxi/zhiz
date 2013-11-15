@@ -51,6 +51,8 @@ To deploy this simple blog on appfog, follow these steps:
    Follow what `af` tells you to do, you will login the remote MySQL(the
    service binding to your app), then paste the sqls in tables.sql and run them:
 
+   ```
    mysql> show databases;
    mysql> use 21232f297a57a5a743894a0e4a801fc3;
    mysql> here paste the content of tables.sql
+   ```
