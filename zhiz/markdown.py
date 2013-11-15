@@ -46,7 +46,7 @@ class ZhizHtmlRenderer(HtmlRenderer, SmartyPants):
         return highlight(text, lexer, formatter)
 
 
-render = ZhizHtmlRenderer()  # initialize the color render
+render = ZhizHtmlRenderer(flags=misaka.HTML_ESCAPE)  # initialize the color render
 
 extensions = (
     misaka.EXT_FENCED_CODE |
