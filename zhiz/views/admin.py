@@ -42,10 +42,7 @@ def create():
         flash(dict(type='warning', content='Empty title'))
         return redirect(url_for('write'))
 
-    create_at = datetime.now()
-    create_at_str = create_at.strftime('%Y-%m-%d %H:%M:%S')
-
-    post = Post.create(title=title, title_pic=title_pic, body=body, datetime=create_at_str,
+    post = Post.create(title=title, title_pic=title_pic, body=body, datetime=datetime.now(),
                        published=published)
     if published:
         flash(dict(type='success', content='Published successully'))

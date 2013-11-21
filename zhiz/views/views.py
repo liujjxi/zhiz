@@ -57,7 +57,7 @@ def page(page_number):
     if count < 0: # no posts
         abort(404)
 
-    total_count = Post.select(Post.id).execute().count
+    total_count = Post.count()
 
     is_first_page = True if page_number == 1 else False
     is_last_page = True if n * page_number >= total_count else False

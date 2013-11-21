@@ -1,5 +1,5 @@
 Flask
 misaka
-CURD.py>=0.3.0
+CURD.py>=0.3.2
 houdini.py>=0.1.0
 pygments
