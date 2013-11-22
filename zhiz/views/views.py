@@ -49,7 +49,7 @@ def page(page_number):
 
     n = 9
 
-    query = Post.where(published=1).orderby(
+    query = Post.where(published=True).orderby(
         Post.datetime, desc=True).limit(n, offset=n * (page_number-1)).select()
     results = query.execute()
     count = results.count

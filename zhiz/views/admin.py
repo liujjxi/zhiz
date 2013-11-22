@@ -110,7 +110,7 @@ def preview():
 @app.route('/admin/drafts')
 @login_required
 def drafts():
-    query = Post.where(published=0).orderby(Post.datetime, desc=True).select(Post.title, Post.datetime)
+    query = Post.where(published=False).orderby(Post.datetime, desc=True).select(Post.title, Post.datetime)
     results = query.execute()
     posts = tuple(results.fetchall())
     return render_template('drafts.html', active_tab='drafts', posts=posts)
