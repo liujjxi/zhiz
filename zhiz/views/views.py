@@ -16,9 +16,7 @@ def index():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    blog = Blog.getone()
-    author = Author.getone()
-    return render_template('404.html', blog=blog, author=author), 404
+    return render_public('404.html'), 404
 
 
 def render_public(template, **data):
@@ -36,9 +34,28 @@ def render_public(template, **data):
 @app.route('/post/<int:post_id>')
 def post(post_id):
     post = Post.at(post_id).getone()
+
     if post is None:
         abort(404)
+
+    # render markdown to html
     setattr(post, 'html', markdown.render(post.body))
+
+    # get next and prev post
+    query = Post.where(Post.id._in(
+        Post.where(Post.id > post_id).select(Fn.min(Post.id)),
+        Post.where(Post.id < post_id).select(Fn.max(Post.id)),
+    )).select(Post.id, Post.title)
+
+    setattr(post, 'next', None)
+    setattr(post, 'prev', None)
+
+    for p in query:
+        if p.id > post_id:
+            post.next = p
+        elif p.id < post_id:
+            post.prev = p
+
     return render_public('post.html', post=post)
 
 

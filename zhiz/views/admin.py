@@ -36,14 +36,14 @@ def create():
     body = request.form['body']
     title = request.form['title']
     title_pic = request.form['title_pic']
-    published = int(request.form['published'])
+    published = bool(int(request.form['published']))
 
-    if len(title) <=0 :
+    if not title:
         flash(dict(type='warning', content='Empty title'))
         return redirect(url_for('write'))
 
-    post = Post.create(title=title, title_pic=title_pic, body=body, datetime=datetime.now(),
-                       published=published)
+    post = Post.create(title=title, title_pic=title_pic, body=body,
+                       datetime=datetime.now(), published=published)
     if published:
         flash(dict(type='success', content='Published successully'))
         return redirect(url_for('post', post_id=post.id))
@@ -58,11 +58,11 @@ def update_post(post_id):
     body = request.form['body']
     title = request.form['title']
     title_pic = request.form['title_pic']
-    published = int(request.form['published'])
+    published = bool(int(request.form['published']))
 
     post = Post.at(post_id).getone()
 
-    published_old = int(post.published)
+    published_old = bool(int(post.published))
 
     if not post.published:  # only non-published posts update this field
         post.published = published
@@ -79,7 +79,7 @@ def update_post(post_id):
         else:
             flash(dict(type='success', content='Saved successfully'))
             if post.published:
-                return redirect(url_for('post', post_id=post.id))  # go to preview
+                return redirect(url_for('post', post_id=post.id))  # go to have a look
 
     else:
         flash(dict(type='error', content='Something wrong when updating post'))
@@ -94,14 +94,14 @@ def preview():
     body = request.form['body']
 
     if not title:
-        flash(dict(type='warning', content='Title is empty!'))
+        flash(dict(type='warning', content='Title is empty'))
 
     post = dict(
         title=title,
         title_pic=title_pic,
         html=markdown.render(body),
         datetime=datetime.now(),
-        id=None
+        id=None  # !preview
     )
 
     return render_public('post.html', post=post)
@@ -110,7 +110,11 @@ def preview():
 @app.route('/admin/drafts')
 @login_required
 def drafts():
-    query = Post.where(published=False).orderby(Post.datetime, desc=True).select(Post.title, Post.datetime)
+    query = Post.where(
+        published=False
+    ).orderby(Post.datetime, desc=True).select(
+                Post.title, Post.datetime, Post.id
+    )
     results = query.execute()
     posts = tuple(results.fetchall())
     return render_template('drafts.html', active_tab='drafts', posts=posts)

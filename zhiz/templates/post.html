@@ -37,6 +37,20 @@
   </div>
   <div class="date">written on {{post.datetime.strftime("%b  %d, %y")}} </div>
 
+  <div class="posts-nav">
+    {% if post.prev %}
+    <a class="prev" href="{{url_for('post', post_id=post.prev.id)}}">
+      <i class="icon-arrow-left"></i>
+      <span>{{post.prev.title}}</span>
+    </a>
+    {% endif %}
+    {% if post.next %}
+    <a class="next" href="{{url_for('post', post_id=post.next.id)}}">
+      <span>{{post.next.title}}</span>
+      <i class="icon-arrow-right"></i>
+      </a>
+    {% endif %}
+  </div>
 
   {% if blog.disqus %}
     <!-- Disqus Begin-->

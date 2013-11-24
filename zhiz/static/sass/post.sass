@@ -6,7 +6,7 @@
     +bigtitle
     display: block
     margin: 50px 0 30px
-  div.date 
+  div.date
     +ofl-font(18px)
     font-style: italic
     text-align: right
@@ -23,3 +23,37 @@
     height: 50px
     width: 50px
     z-index: -3
+
+  div.posts-nav
+    width: 100%
+    +transition(.5s)
+    line-height: 3.33
+    display: inline-block
+    border-top: 1px solid #dedddf
+    border-bottom: 1px solid #dedddf
+    margin: 21px 0
+    a.next, a.prev
+      background-color: inherit
+      color: $black
+      font-size: 20px
+      display: block
+      width: 50%
+    a.prev
+      float: left
+      text-align: left
+      [class^="icon-"]:before, [class*=" icon-"]:before
+        margin-right: 10px
+    a.next
+      float: right
+      text-align: right
+      [class^="icon-"]:before, [class*=" icon-"]:before
+        margin-left: 10px
+    a:hover
+      text-decoration: none
+    a.next:hover, a.prev:hover
+      background-color: rgba(0,0,0,.025)
+
+
+#disqus_thread
+  border-bottom: 1px solid #dedddf
+  padding: 21px 0
