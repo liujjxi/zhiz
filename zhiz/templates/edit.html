@@ -9,7 +9,7 @@
 {%block title%}Edit | Admin{%endblock%}
 {%block tab_content%}
 <div class="editor-wrapper">
-  <form name="workspace" action="{{url_for('update_post', post_id=post.id)}}" method="post" accept-charset="utf-8">
+  <form name="workspace" action="{{url_for('update_post', id=post.id)}}" method="post" accept-charset="utf-8">
     <input name="title" class="title" type="text" placeholder="Title" id="title" value="{{post.title}}"/>
     <input name="title_pic" class="title" type="text" placeholder="Title Picture Url" id="title_pic" value="{{post.title_pic}}" />
     <input type="hidden" name="published" id="published" value={{post.published}} />
@@ -41,7 +41,7 @@
   var do_a_save = function() {
     editor.codemirror.save();
     form.target = '_self';
-    form.action = '{{url_for("update_post", post_id=post.id)}}';
+    form.action = '{{url_for("update_post", id=post.id)}}';
     form.submit();
   };
 
@@ -61,7 +61,7 @@
 
   var do_drop_post = function() {
     form.target = '_self';
-    form.action = '{{url_for("delete", post_id=post.id)}}';
+    form.action = '{{url_for("delete", id=post.id)}}';
     form.submit();
   }
 
@@ -69,7 +69,7 @@
   var publish_post = function() {
     editor.codemirror.save();
     form.target = '_self';
-    form.action = '{{url_for("update_post", post_id=post.id)}}';
+    form.action = '{{url_for("update_post", id=post.id)}}';
     form.published.value = 1;
     form.submit()
   };

@@ -27,12 +27,12 @@ Page {{page.number}} | {{blog.name}}
 <div class="item {% if post.title_pic %} item-p {% else %} item-no-p {% endif %}">
   <div class="post{% if post.title_pic %} post-with-title-pic {% else %} post-without-title-pic {% endif %}">
     <h1 class="title">
-      <a class="title" href="{{url_for('post', post_id=post.id)}}" title="{{post.title}}" >{{post.title}}</a>
+      <a class="title" href="{{url_for('post', id=post.id)}}" title="{{post.title}}" >{{post.title}}</a>
       <a class="date">{{post.datetime.strftime("%b  %d, %y")}}</a>
     </h1>
     {% if post.title_pic %}
     <div class="title-pic-preview" data-background="{{post.title_pic}}" ></div>
-    <a href="{{url_for('post', post_id=post.id)}}" title="{{post.title}}" class="entry-link"></a>
+    <a href="{{url_for('post', id=post.id)}}" title="{{post.title}}" class="entry-link"></a>
     <div class="spinner" style="background-image:url({{url_for('static', filename='spinner-circle-fade.gif')}})"></div>
     {% else %}
     <div class="post-html summary">
@@ -40,7 +40,7 @@ Page {{page.number}} | {{blog.name}}
       {{post.summary}}
       {% endautoescape %}
     </div>
-    <p class="read-more"><a href="{{url_for('post', post_id=post.id)}}" title="Read more"> ··· </a><p>
+    <p class="read-more"><a href="{{url_for('post', id=post.id)}}" title="Read more"> ··· </a><p>
     {% endif %}
   </div>
 </div>

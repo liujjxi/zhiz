@@ -18,7 +18,7 @@
   {% if logged_in %}
   <div class="toolbar">
     {% if post.id %} {# normarl rendering #}
-    <form action="{{url_for('edit', post_id=post.id)}}" >
+    <form action="{{url_for('edit', id=post.id)}}" >
       <button type="submit" class="btn-white hint--bottom" data-hint="Edit this post">
         <span class="icon-pencil">Edit</span>
       </button>
@@ -39,13 +39,13 @@
 
   <div class="posts-nav">
     {% if post.prev %}
-    <a class="prev" href="{{url_for('post', post_id=post.prev.id)}}">
+    <a class="prev" href="{{url_for('post', id=post.prev.id)}}">
       <i class="icon-arrow-left"></i>
       <span>{{post.prev.title}}</span>
     </a>
     {% endif %}
     {% if post.next %}
-    <a class="next" href="{{url_for('post', post_id=post.next.id)}}">
+    <a class="next" href="{{url_for('post', id=post.next.id)}}">
       <span>{{post.next.title}}</span>
       <i class="icon-arrow-right"></i>
       </a>

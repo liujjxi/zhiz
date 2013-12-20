@@ -13,7 +13,7 @@
 {% for post in posts %}
 <li class="draft">
 <span class="title">
-  <a href="{{url_for('edit', post_id=post.id)}}">{{post.title}}</a>
+  <a href="{{url_for('edit', id=post.id)}}">{{post.title}}</a>
 </span>
 <span class="date">
   {{post.datetime.strftime("%Y-%m-%d %H:%M")}}
