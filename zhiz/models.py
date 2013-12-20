@@ -4,7 +4,7 @@
     zhiz.models
     ~~~~~~~~~~~
 
-    zhiz's models: author, post, blog,
+    tables to models mappings
 """
 
 from hashlib import md5

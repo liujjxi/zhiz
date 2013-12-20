@@ -23,7 +23,7 @@ class ZhizHtmlRenderer(HtmlRenderer, SmartyPants):
 
     def _code_no_lexer(self, text):
         # encode to utf8 string
-        text = text.encode(charset).strip()
+        text = text.encode('utf8').strip()
         return(
             """
             <div class="highlight">
