@@ -26,7 +26,7 @@
 
 from datetime import datetime
 
-from CURD import Fn
+from CURD import fn
 from flask import abort, render_template, request, redirect, url_for
 
 from zhiz import app
@@ -47,8 +47,8 @@ def post(id):
     setattr(post, 'html', markdown.render(post.body))
 
     query = Post.where(Post.id._in(
-        Post.where(Post.id > id).select(Fn.min(Post.id)),
-        Post.where(Post.id < id).select(Fn.max(Post.id)),
+        Post.where(Post.id > id).select(fn.min(Post.id)),
+        Post.where(Post.id < id).select(fn.max(Post.id)),
     )).select(Post.id, Post.title)
 
     setattr(post, 'next', None)
@@ -119,7 +119,7 @@ def update_post(id):
         else:
             flashx.success('Saved successfully')
             if post.published:
-                return redirect(url_for('post', id=post.id))  # go to have a look
+                return redirect(url_for('post', id=post.id))
 
     else:
         flashx.error('Something wrong when updating post')
@@ -178,8 +178,8 @@ def drafts():
     query = Post.where(
         published=False
     ).orderby(Post.datetime, desc=True).select(
-                Post.title, Post.datetime, Post.id
+        Post.title, Post.datetime, Post.id
     )
     results = query.execute()
-    posts = tuple(results.fetchall())
+    posts = tuple(results.all())
     return render_template('drafts.html', active_tab='drafts', posts=posts)
