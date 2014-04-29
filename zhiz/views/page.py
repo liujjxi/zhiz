@@ -10,7 +10,7 @@
         GET, `page/<int:page_number>`, display a page
 """
 
-from CURD import Fn
+from CURD import fn
 from flask import abort
 
 from zhiz import app
@@ -26,22 +26,23 @@ def page(page_number):
     n = 9
 
     query = Post.where(published=True).orderby(
-        Post.datetime, desc=True).limit(n, offset=n * (page_number-1)).select()
+        Post.datetime, desc=True).limit(n, offset=n * (page_number - 1)
+                                        ).select()
     results = query.execute()
     count = results.count
 
-    if count < 0: # no posts
+    if count < 0:  # no posts
         abort(404)
 
-    query = Post.where(published=True).select(Fn.count(Post.id))
+    query = Post.where(published=True).select(fn.count(Post.id))
     result = query.execute()
-    post = result.fetchone()
-    total_count = post.count_of_id
+    func = result.one()
+    total_count = func.count
 
     is_first_page = True if page_number == 1 else False
     is_last_page = True if n * page_number >= total_count else False
 
-    posts = tuple(results.fetchall())
+    posts = tuple(results.all())
 
     page = dict(
         number=page_number,

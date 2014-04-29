@@ -12,7 +12,7 @@
 """
 
 
-from flask import flash, render_template
+from flask import flash
 
 
 class flashx(object):
@@ -28,5 +28,3 @@ class flashx(object):
     @staticmethod
     def error(message):
         return flash(dict(type='error', content=message))
-
-

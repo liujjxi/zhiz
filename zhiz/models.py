@@ -12,7 +12,7 @@ from hashlib import md5
 from zhiz import app
 from zhiz.markdown import markdown
 
-from CURD import Model, Field, Database, PrimaryKey, ForeignKey, Fn
+from CURD import Model, Field, Database
 
 
 class Author(Model):
