@@ -10,8 +10,8 @@
         GET, `page/<int:page_number>`, display a page
 """
 
-from CURD import fn
 from flask import abort
+from skylark import fn
 
 from zhiz import app
 from zhiz.models import Post

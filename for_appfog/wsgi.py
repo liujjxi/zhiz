@@ -2,7 +2,7 @@ import sys
 sys.path.insert(0, '.')
 
 from zhiz import app
-from CURD import Database
+from skylark import Database
 
 # appfog mysql configuration
 

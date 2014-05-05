@@ -26,8 +26,8 @@
 
 from datetime import datetime
 
-from CURD import fn
 from flask import abort, render_template, request, redirect, url_for
+from skylark import fn
 
 from zhiz import app
 from zhiz.markdown import markdown

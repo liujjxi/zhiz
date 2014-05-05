@@ -1,7 +1,7 @@
 # coding=utf8
 
-from CURD import Models
 from flask import render_template
+from skylark import Models
 
 from zhiz.models import Author, Blog
 from zhiz.utils import flashx
