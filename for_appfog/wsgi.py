@@ -21,7 +21,7 @@ DB_CFG = {
 }
 
 # update database configuration
-app.config['DB_CFG'] = DB_CFG
+app.config['DB_CFG'].update(DB_CFG)
 app.name = 'wsgi'
 application = app # !important
 
