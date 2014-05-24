@@ -28,7 +28,7 @@ def settings():
     blog = Blog.getone()
 
     if blog is None:
-        blog = {}.fromkeys(Blog.get_fields(), '')
+        blog = {}.fromkeys(Blog.fields().values(), '')
         flashx.warning('You have no settings, please eidt and save')
     return render_template('settings.html', active_tab='settings', blog=blog)
 

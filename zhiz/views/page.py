@@ -36,8 +36,7 @@ def page(page_number):
 
     query = Post.where(published=True).select(fn.count(Post.id))
     result = query.execute()
-    func = result.one()
-    total_count = func.count
+    total_count = result.tuples()[0][0]
 
     is_first_page = True if page_number == 1 else False
     is_last_page = True if n * page_number >= total_count else False

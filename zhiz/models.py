@@ -53,5 +53,6 @@ class Admin(Model):
 
     passwd = Field()
 
-
+import pymysql
+Database.set_dbapi(pymysql)
 Database.config(**app.config['DB_CFG'])

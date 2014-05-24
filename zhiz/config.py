@@ -4,7 +4,8 @@
 DB_CFG = {
     'db': 'zhiz',
     'user': 'root',
-    'passwd': ''
+    'passwd': '',
+    'charset': 'utf8'
 }
 
 # app's secret_key, you can use `os.urandom(24)` to generate one

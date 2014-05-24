@@ -3,7 +3,7 @@ zhiz
 
 The dynamic version of [hit9/rux.git](http://github.com/hit9/rux.git)
 
-version v0.1.1
+version v0.2.0
 
 Testing url: http://zhizblog.ap01.aws.af.cm/ (admin ur: `/admin`, password: `admin`)
 

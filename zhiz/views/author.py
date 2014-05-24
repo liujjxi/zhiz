@@ -25,7 +25,7 @@ def author():
     author = Author.getone()
 
     if author is None:
-        author = {}.fromkeys(Author.get_fields(), '')
+        author = {}.fromkeys(Author.fields.values(), '')
         flashx.warning('Please compelte author\'s information')
     return render_template('author.html', active_tab='author', author=author)
 

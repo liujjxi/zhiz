@@ -1,5 +1,6 @@
 Flask
 misaka
-skylark>=0.7.1
+skylark>=0.9.0
 houdini.py>=0.1.0
 pygments
+PyMySQL>=0.6.2
